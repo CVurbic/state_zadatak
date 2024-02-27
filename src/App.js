@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import IpakNemoj from './components/IpakNemoj';
 import mladaSlika from "./imgs/mladi.jpg"
 import stariSlika from "./imgs/OIP.jpg"
+import LifeCycle from './components/LifeCycle';
+
 
 
 /* function App() {
@@ -84,6 +86,7 @@ class App extends React.Component{
             />
             
           </header>
+          <LifeCycle/>
         </div>
       
     )
