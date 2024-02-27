@@ -1,22 +1,43 @@
-import logo from './logo.svg';
+
 import './App.css';
+import GodineButton from './components/GodineButton';
+import { useState } from 'react';
+import IpakNemoj from './components/IpakNemoj';
+import mladaSlika from "./imgs/mladi.jpg"
+import stariSlika from "./imgs/OIP.jpg"
+
 
 function App() {
+  const [đuro, setĐuro] = useState({ime: "Đuro", godine: "5 godina", imgLink: mladaSlika})
+
+  function handleĐuroGodine(đurica){
+    const newĐuro = {...đuro}
+    newĐuro.godine = `${đurica} godina`
+    newĐuro.imgLink = stariSlika;
+    console.log(newĐuro)
+    setĐuro(newĐuro)
+  }
+
+  function handleVratiGodine(){
+    setĐuro({ime: "Đuro", godine: "5 godina", imgLink: mladaSlika})
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        
+        <img src={đuro.imgLink} style={{maxHeight:"500px"}} alt="logo" />
+
+        
+        <GodineButton
+          handleĐuroGodine= {handleĐuroGodine}
+        />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {đuro.ime}, {đuro.godine}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <IpakNemoj
+         handleVratiGodine= {handleVratiGodine}
+        />
+        
       </header>
     </div>
   );
