@@ -9,6 +9,8 @@ import stariSlika from "./imgs/OIP.jpg"
 import KorisnikovInput from './components/KorisnikovInput';
 import Liste from './components/Liste';
 import User from './components/User';
+import FormVjezba from './components/FormVjezba';
+
 
 
 
@@ -109,6 +111,7 @@ class App extends React.Component {
           <IpakNemoj
             handleVratiGodine={this.handleVratiGodine}
           />
+          <FormVjezba/>
           <Liste />
           {users.map((user, index) => {
             return (
