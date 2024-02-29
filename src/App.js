@@ -51,79 +51,86 @@ import User from './components/User';
     </div>
   );
 } */
-class App extends React.Component{
-  constructor(){
+class App extends React.Component {
+  constructor() {
     super();
-    this.state ={
-      đuro: [
-        {ime: "Đuro", godine: 5, imgLink: mladaSlika},
-        {ime: "Pero", godine: 10, imgLink: mladaSlika},
-        {ime: "Katica", godine: 4, imgLink: mladaSlika},
-        {ime: "Ankica", godine: 6, imgLink: mladaSlika}
-    ]
+    this.state = {
+      users: [
+        { ime: "Đuro", godine: 5, imgLink: mladaSlika },
+        { ime: "Pero", godine: 10, imgLink: stariSlika },
+        { ime: "Katica", godine: 4, imgLink: mladaSlika },
+        { ime: "Ankica", godine: 6, imgLink: mladaSlika },
+        { ime: "Antuša", godine: 6, imgLink: mladaSlika }
+      ]
     };
     this.handleĐuroGodine = this.handleĐuroGodine.bind(this);
     this.handleVratiGodine = this.handleVratiGodine.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
   }
 
-handleChangeName(e, index){
-  const newNameForĐuro = e.target.value
-  this.setState(prevState =>{
-    const updatedĐuro = [...prevState.đuro];
-    updatedĐuro[index].ime = newNameForĐuro;
-    return {đuro: updatedĐuro}
-  })
-}
+  handleChangeName(e, index) {
+    const newNameForĐuro = e.target.value
+    this.setState(prevState => {
+      const updatedĐuro = [...prevState.users];
+      updatedĐuro[index].ime = newNameForĐuro;
+      return { users: updatedĐuro }
+    })
+  }
 
-  handleĐuroGodine(đurica){
-    const newĐuro = {...this.state.đuro}
-    
+  handleĐuroGodine(đurica) {
+    const newĐuro = { ...this.state.users }
+
     newĐuro.godine = `${đurica} godina`
     newĐuro.imgLink = stariSlika;
-    this.setState({đuro: newĐuro})
+    this.setState({ users: newĐuro })
   }
-  handleVratiGodine(){
-    this.setState({đuro: {ime: "Đuro", godine: 5 , imgLink: mladaSlika}})
+  handleVratiGodine() {
+    this.setState({ users: { ime: "Đuro", godine: 5, imgLink: mladaSlika } })
   }
 
-  render(){
-    const đuro = this.state.đuro
-    return(
-        <div className="App">
-          <header className="App-header">
-            
-             <img src={đuro.imgLink} style={{maxHeight:"500px"}} alt="logo" />
-     
-            
-            <GodineButton
-              handleĐuroGodine= {this.handleĐuroGodine}
-            />
-            <p>
-              {đuro.ime}, {đuro.godine}
-            </p>
-            <KorisnikovInput
-            handleChangeName = {this.handleChangeName}
-            korisnik = {đuro}
-            />
-            <IpakNemoj
-             handleVratiGodine= {this.handleVratiGodine}
-            />
-            <Liste/>
-            {đuro.map((user,index)=>{
-              return(<User
-              key={index}
-                name = {user.ime}
-                years = {user.godine}
-                onNameChange={(e) => this.handleChangeName(e, index)} // proslijeđujemo indeks
-                />)
-            })
-            
-            }
-          </header>{/* 
+  render() {
+    const users = this.state.users
+    return (
+      <div className="App">
+        <header className="App-header">
+
+
+
+          <GodineButton
+            handleĐuroGodine={this.handleĐuroGodine}
+          />
+          <p>
+            {users.ime}, {users.godine}
+          </p>
+          <KorisnikovInput
+            handleChangeName={this.handleChangeName}
+            korisnik={users}
+          />
+          <IpakNemoj
+            handleVratiGodine={this.handleVratiGodine}
+          />
+          <Liste />
+          {users.map((user, index) => {
+            return (
+              <div 
+              key={index}>
+
+                <img src={user.imgLink} style={{ maxHeight: "500px" }} alt="logo" />
+
+                <User
+                  name={user.ime}
+                  years={user.godine}
+                  onNameChange={(e) => this.handleChangeName(e, index)} // proslijeđujemo indeks
+                />
+              </div>)
+
+          })
+
+          }
+        </header>{/* 
           <LifeCycle/> */}
-        </div>
-      
+      </div>
+
     )
   }
 }
