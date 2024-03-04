@@ -1,38 +1,41 @@
 .App {
   text-align: center;
+  color: rgba(211, 211, 211, 1);
+  background-color: rgba(0,0,0,0.8);
+  padding: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.prije{
+  display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.users {
+  display: grid;
+  grid-template-columns: 50% 50%; /* This sets four columns */
+  grid-gap: 10px; /* Optional: Adjust the gap between grid items */
+  
+  margin-bottom: 4rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.users > div{
+  border: 1px solid rgba(145, 145, 145, 0.8);
+  border-radius: 2rem;
+  padding: 2rem 1rem;
+  background-color: rgba(145, 145, 145, 0.8);
+}
+.slikica{
+  overflow: hidden;
+  border-radius: 50%;
+}
+.newUserForm{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  gap: 1rem;
+  align-items:flex-start;
+  padding: 1rem;
+  color: black;
+  border: 1px solid rgba(145, 145, 145, 0.8);
+  border-radius: 0.75rem;
+  background-color: rgba(241, 221, 221, 0.8);
+  margin-bottom: 2rem;
 }

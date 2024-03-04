@@ -10,6 +10,7 @@ import KorisnikovInput from './components/KorisnikovInput';
 import Liste from './components/Liste';
 import User from './components/User';
 import FormVjezba from './components/FormVjezba';
+import FormDZ from './components/FormDZ';
 
 
 
@@ -61,13 +62,13 @@ class App extends React.Component {
         { ime: "Đuro", godine: 5, imgLink: mladaSlika },
         { ime: "Pero", godine: 10, imgLink: stariSlika },
         { ime: "Katica", godine: 4, imgLink: mladaSlika },
-        { ime: "Ankica", godine: 6, imgLink: mladaSlika },
-        { ime: "Antuša", godine: 6, imgLink: mladaSlika }
-      ]
+        { ime: "Ankica", godine: 6, imgLink: mladaSlika }
+      ],
     };
     this.handleĐuroGodine = this.handleĐuroGodine.bind(this);
     this.handleVratiGodine = this.handleVratiGodine.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   handleChangeName(e, index) {
@@ -78,7 +79,19 @@ class App extends React.Component {
       return { users: updatedĐuro }
     })
   }
+  handleFormSubmit(e) {
+    e.preventDefault()
+    const ime = e.target[0].value
+    const godine = e.target[1].value
 
+    const noviUser = { ime: ime, godine: godine }
+    const stariUser = [noviUser, ...this.state.users]
+    console.log(stariUser)
+
+    this.setState({ users:  stariUser })
+
+
+  }
   handleĐuroGodine(đurica) {
     const newĐuro = { ...this.state.users }
 
@@ -95,43 +108,52 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          
+        <FormDZ
+          handleFormSubmit={this.handleFormSubmit}
+        />
+          <div className='prije'>
+            <GodineButton
+              handleĐuroGodine={this.handleĐuroGodine}
+            />
+            <p>
+              {users.ime}, {users.godine}
+            </p>
+            <KorisnikovInput
+              handleChangeName={this.handleChangeName}
+              korisnik={users}
+            />
+            <IpakNemoj
+              handleVratiGodine={this.handleVratiGodine}
+            />
+            <FormVjezba />
 
 
 
-          <GodineButton
-            handleĐuroGodine={this.handleĐuroGodine}
-          />
-          <p>
-            {users.ime}, {users.godine}
-          </p>
-          <KorisnikovInput
-            handleChangeName={this.handleChangeName}
-            korisnik={users}
-          />
-          <IpakNemoj
-            handleVratiGodine={this.handleVratiGodine}
-          />
-          <FormVjezba/>
-          <Liste />
-          {users.map((user, index) => {
-            return (
-              <div 
-              key={index}>
+            <Liste />
+          </div>
+          <div className='users'>
 
-                <img src={user.imgLink} style={{ maxHeight: "500px" }} alt="logo" />
+            {users.map((user, index) => {
+              return (
+                <div
+                  key={index}>
 
-                <User
-                  name={user.ime}
-                  years={user.godine}
-                  onNameChange={(e) => this.handleChangeName(e, index)} // proslijeđujemo indeks
-                />
-              </div>)
+                  <img className='slikica' src={user.godina > 18? stariSlika: mladaSlika} width={200} height={200} style={{ maxHeight: "500px" }} alt="logo" />
 
-          })
+                  <User
+                    name={user.ime}
+                    years={user.godine}
+                    onNameChange={(e) => this.handleChangeName(e, index)} // proslijeđujemo indeks
+                  />
+                </div>)
 
-          }
-        </header>{/* 
-          <LifeCycle/> */}
+            })
+
+            }
+          </div>
+
+        </header>
       </div>
 
     )
