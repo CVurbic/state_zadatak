@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import * as ReactDOM from 'react-dom/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  cache: new InMemoryCache(),
+});
+
+// Supported in React 18+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+);
+
+const GET_LOCATIONS = gql`
+query GetLocations {
+  locations {
+    id
+    name
+    description
+    photo
+  }
+}
+`;
+
+function DisplayLocations() {
+  const { loading, error, data } = useQuery(GET_LOCATIONS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+
+  return data.locations.map(({ id, name, description, photo }) => (
+    <div key={id}>
+      <h3>{name}</h3>
+      <img width="400" height="250" alt="location-reference" src={`${photo}`} />
+      <br />
+      <b>About this location:</b>
+      <p>{description}</p>
+      <br />
+    </div>
+  ));
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2>My first Apollo app 🚀</h2>
+      <br />
+      <DisplayLocations />
     </div>
   );
 }
 
-export default App;
+export { App };
